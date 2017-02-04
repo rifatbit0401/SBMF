@@ -39,19 +39,17 @@ public class ArgumentGenerator {
 			String type = parameter.getType().toString();
 			if (type.equals(Keywords.INTEGER)) {
 				argStr += getDataForInt();
-			}
-			if (type.equals(Keywords.FLOAT)) {
+			} else if (type.equals(Keywords.FLOAT)) {
 				argStr += getDataForFloat();
-			}
-			if (type.equals(Keywords.DOUBLE)) {
+			} else if (type.equals(Keywords.DOUBLE)) {
 				argStr += getDataForDouble();
-			}
-			if (type.equals(Keywords.STRING)) {
+			} else if (type.equals(Keywords.STRING)) {
 				argStr += getDataForString();
+			} else if (type.equals(Keywords.CHAR)) {
+				argStr += "'" + getDataForChar() + "'";
+			} else {
+				argStr += "null";
 			}
-		/*	if(type.toLowerCase().contains(Keywords.LIST.toLowerCase())){
-				
-			}*/
 
 		}
 
@@ -74,11 +72,16 @@ public class ArgumentGenerator {
 		return "str1";
 	}
 
+	private char getDataForChar() {
+		return 'C';
+	}
+
 	public class Keywords {
 		public static final String INTEGER = "int";
 		public static final String FLOAT = "float";
 		public static final String DOUBLE = "double";
 		public static final String STRING = "String";
 		public static final String LIST = "List";
+		public static final String CHAR = "char";
 	}
 }

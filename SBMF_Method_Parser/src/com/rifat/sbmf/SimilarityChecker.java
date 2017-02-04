@@ -48,7 +48,6 @@ public class SimilarityChecker {
 			for (String argument : methodCluster.getArguments()) {
 
 				String output1 = codeExecutor.execute(method1, Constants.SOURCE_CODE_STORAGE_DIR, argument);
-
 				for (SelfExecutableMethod method2 : selfExecutableMethods) {
 
 					if (method1.equals(method2))

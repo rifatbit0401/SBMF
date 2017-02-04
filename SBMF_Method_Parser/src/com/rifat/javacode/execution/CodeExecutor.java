@@ -24,16 +24,20 @@ public class CodeExecutor {
 	private CmdRunner cmdRunner;
 	private CodeGenerator codeGenerator;
 	private ListOperator listOperator;
+	private FileUtility fileUtility;
 
 	public CodeExecutor() {
 		command = new Command();
 		cmdRunner = new CmdRunner();
 		codeGenerator = new CodeGenerator();
 		listOperator = new ListOperator();
+		fileUtility = new FileUtility();
 	}
 
 	public String execute(SelfExecutableMethod method, String rootdirOfProject, String argumentString)
 			throws IOException, ParseException, InterruptedException {
+		fileUtility.clearDirectory(rootdirOfProject);
+
 		this.rootDirOfProject = rootdirOfProject;
 		ClassInfo methodClassInfo = method.toClassInfo(Constants.CLASS_NAME);
 		String mainClassCode = codeGenerator.getMainClassCode(method.getMethod().getName(), methodClassInfo.className,
@@ -62,7 +66,7 @@ public class CodeExecutor {
 		List<String> compileCommands = new ArrayList<String>();
 		compileCommands.addAll(command.getOpenCommandPromptCommand());
 		compileCommands.add(command.getCompileJavaCodeCommand(rootDirOfProject, null, mainClass.className));
-		cmdRunner.runCommand(compileCommands, rootDirOfProject);
+		List<String> output = cmdRunner.runCommand(compileCommands, rootDirOfProject);
 	}
 
 	private void writeSourceCodeToFile(String sourceFileFullPath, String sourceCode) throws IOException {

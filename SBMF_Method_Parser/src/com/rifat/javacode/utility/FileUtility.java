@@ -19,6 +19,9 @@ public class FileUtility {
 		return file;
 	}
 
+	/**
+	 * delete all files in the specified directory
+	 */
 	public void clearDirectory(String directoryPath) {
 		File file = new File(directoryPath);
 		if (file.isDirectory()) {
